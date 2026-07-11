@@ -30,7 +30,7 @@ Green Kisan is a PBL (Project-Based Learning) project built as part of a Full St
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer     | Technology                          |
 |-----------|--------------------------------------|
@@ -38,12 +38,11 @@ Green Kisan is a PBL (Project-Based Learning) project built as part of a Full St
 | Backend   | Node.js, Express.js                  |
 | Database  | MongoDB (Mongoose)                   |
 | Auth      | JWT, bcryptjs                        |
-| Payments  | Razorpay                             |
 | File Upload | Multer                             |
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 ├── backend/
