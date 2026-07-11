@@ -1,16 +1,16 @@
-# 🌱 Green Kisan
+# Green Kisan
 
 A full-stack web platform that connects **farmers** and **industries** for buying and selling crop residue — reducing agricultural waste and creating economic value.
 
 ---
 
-## 📌 About the Project
+## About the Project
 
 Green Kisan is a PBL (Project-Based Learning) project built as part of a Full Stack Development course. It provides a marketplace where farmers can list their crop residue, and industries can search, book, and purchase it directly.
 
 ---
 
-## ✨ Features
+## Features
 
 **For Farmers**
 - Sign up / Sign in
@@ -63,46 +63,8 @@ Green Kisan is a PBL (Project-Based Learning) project built as part of a Full St
 
 ---
 
-## 🚀 Getting Started
 
-### Prerequisites
-- Node.js v18+
-- MongoDB Atlas account (or local MongoDB)
-
-### Backend Setup
-
-```bash
-cd backend
-npm install
-```
-
-Create a `.env` file in the `backend/` folder:
-
-```env
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-RAZORPAY_KEY_ID=your_razorpay_key_id
-RAZORPAY_KEY_SECRET=your_razorpay_key_secret
-PORT=5000
-```
-
-```bash
-npm run dev
-```
-
-### Frontend Setup
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Frontend runs at `http://localhost:5173`, backend at `http://localhost:5000`.
-
----
-
-## 🔑 API Endpoints
+## API Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
@@ -116,24 +78,9 @@ Frontend runs at `http://localhost:5173`, backend at `http://localhost:5000`.
 
 ---
 
-## ⚠️ Important — Before Pushing to GitHub
 
-- **Do NOT commit your `.env` file.** Add it to `.gitignore`:
-  ```
-  backend/.env
-  backend/uploads/
-  node_modules/
-  ```
-- The `.env` currently contains real MongoDB credentials — **rotate those immediately** if this repo is going public.
-
----
-
-## 👥 Team
+## Team
 
 Built as part of a Full Stack Development PBL project.
 
----
 
-## 📄 License
-
-This project is for educational purposes.
