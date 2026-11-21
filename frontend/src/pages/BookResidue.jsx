@@ -37,7 +37,7 @@ export default function BookResidue() {
     const totalPrice = Number(quantity) * 1;
     const payload = { residueId: id, industryId, quantityBooked: Number(quantity), totalPrice, paymentMethod };
 
-    const res = await fetch(`${API_URL}/api/bookings/create`, {
+    const res = await fetch(`${API_URL}/api/bookings`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)

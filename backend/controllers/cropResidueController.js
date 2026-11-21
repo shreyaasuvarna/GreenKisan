@@ -1,12 +1,26 @@
 // backend/controllers/cropResidueController.js
 
 const CropResidue = require("../models/CropResidue");
+const cloudinary = require("../config/cloudinary");
+const fs = require("fs");
+
 
 const uploadResidue = async (req, res) => {
   try {
-    const imagePaths = req.files.map(
-      (file) => `http://localhost:5000/uploads/${file.filename}`
-    );
+    const imagePaths = [];
+
+    for (const file of req.files || []) {
+      const result = await cloudinary.uploader.upload(file.path, {
+        folder: "green-kisan/residues",
+      });
+
+      imagePaths.push(result.secure_url);
+
+      // Remove the temporary local file after successful upload
+      fs.unlink(file.path, (err) => {
+        if (err) console.error("Local file cleanup failed:", err);
+      });
+    }
 
     const residue = new CropResidue({
       cropName: req.body.cropName,
@@ -20,11 +34,20 @@ const uploadResidue = async (req, res) => {
     });
 
     await residue.save();
-    res.json({ message: "Residue uploaded successfully!", residue });
+
+    res.json({
+      message: "Residue uploaded successfully!",
+      residue,
+    });
+
   } catch (error) {
-    res.status(500).json({ error: "Failed to upload residue" });
+    console.error("Cloudinary upload error:", error);
+    res.status(500).json({
+      error: "Failed to upload residue",
+    });
   }
 };
+
 
 const getResidues = async (req, res) => {
   try {

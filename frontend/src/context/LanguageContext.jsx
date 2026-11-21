@@ -61,7 +61,7 @@ const translations = {
     uploadPhotos: "Upload Crop Residue Photos", preview: "Preview",
     submit: "Submit", backToDashboard: "Back to Dashboard",
     uploadHistory: "Upload History", noUploads: "No uploads yet.", cropImage: "Crop",
-    crop: "Crop:",residue: "Residue:",quantity: "Quantity:",uploader: "Uploader:",contactLabel: "Contact:",
+    crop: "Crop:",residue: "Residue:",quantity: "Quantity:",uploader: "Uploader:",
     delete: "Delete", anonymous: "Anonymous", notProvided: "Not Provided",
     searchCropResidue: "Search Crop Residue",
     selectResidueType: "Select Residue Type",

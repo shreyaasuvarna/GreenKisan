@@ -49,31 +49,62 @@ const createBooking = async (req, res) => {
 const farmerConfirm = async (req, res) => {
   try {
     const { bookingId } = req.params;
-    const { action } = req.body; // "confirm" or "reject"
+    const { action } = req.body;
 
     if (!["confirm", "reject"].includes(action)) {
       return res.status(400).json({ message: "Invalid action" });
     }
 
-    const update = action === "confirm"
-      ? { status: "FarmerConfirmed" }
-      : { status: "Rejected" };
+    const booking = await Booking.findById(bookingId);
 
-    const booking = await Booking.findByIdAndUpdate(bookingId, update, { new: true });
-
-    if (action === "confirm") {
-      await CropResidue.findByIdAndUpdate(
-        booking.residueId,
-        { $inc: { quantity: -booking.quantityBooked } }
-      );
+    if (!booking) {
+      return res.status(404).json({ message: "Booking not found" });
     }
 
-    res.json({ message: `Booking ${action}`, booking });
+    if (booking.status !== "Pending" && booking.status !== "Booked") {
+      return res.status(400).json({
+        message: "This booking has already been processed"
+      });
+    }
+
+    if (action === "confirm") {
+      const residue = await CropResidue.findOneAndUpdate(
+        {
+          _id: booking.residueId,
+          quantity: { $gte: booking.quantityBooked }
+        },
+        {
+          $inc: { quantity: -booking.quantityBooked }
+        },
+        { new: true }
+      );
+
+      if (!residue) {
+        return res.status(400).json({
+          message: "Insufficient residue quantity available"
+        });
+      }
+
+      booking.status = "FarmerConfirmed";
+    } else {
+      booking.status = "Rejected";
+    }
+
+    await booking.save();
+
+    res.json({
+      message: `Booking ${action}ed successfully`,
+      booking
+    });
+
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Failed to update booking" });
+    res.status(500).json({
+      error: "Failed to update booking"
+    });
   }
 };
+
 
 // Get notifications for a farmer
 const getNotificationsForFarmer = async (req, res) => {
@@ -87,4 +118,43 @@ const getNotificationsForFarmer = async (req, res) => {
   }
 };
 
-module.exports = { createBooking, farmerConfirm, getNotificationsForFarmer };
+// Get all bookings for an industry
+const getBookingsForIndustry = async (req, res) => {
+  try {
+    const { industryId } = req.params;
+
+    const bookings = await Booking.find({ industryId })
+      .populate("residueId")
+      .sort({ createdAt: -1 });
+
+    res.json(bookings);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch industry bookings" });
+  }
+};
+
+// Get all bookings for a farmer
+const getBookingsForFarmer = async (req, res) => {
+  try {
+    const { farmerId } = req.params;
+
+    const bookings = await Booking.find({ farmerId })
+      .populate("residueId")
+      .populate("industryId")
+      .sort({ createdAt: -1 });
+
+    res.json(bookings);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch farmer bookings" });
+  }
+};
+
+module.exports = {
+  createBooking,
+  farmerConfirm,
+  getNotificationsForFarmer,
+  getBookingsForIndustry,
+  getBookingsForFarmer
+};
