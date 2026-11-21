@@ -1307,6 +1307,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../config/api";
 
 
 const translations = {
@@ -1363,7 +1364,7 @@ const SearchResidue = () => {
   useEffect(() => {
     const fetchResidues = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/residue/all");
+        const res = await fetch(`${API_URL}/api/residue/all`);
         if (!res.ok) throw new Error("Failed to fetch residues");
         const data = await res.json();
         setResidues(data);

@@ -31,6 +31,7 @@
 
 // frontend/src/pages/IndustryOrders.jsx
 import React, { useEffect, useState } from "react";
+import API_URL from "../config/api";
 
 export default function IndustryOrders() {
   const industryId = localStorage.getItem("industryId");
@@ -38,7 +39,7 @@ export default function IndustryOrders() {
 
   useEffect(() => {
     if (!industryId) return;
-    fetch(`http://localhost:5000/api/bookings/industry/${industryId}`)
+    fetch(`${API_URL}/api/bookings/industry/${industryId}`)
       .then(res => res.json())
       .then(data => setOrders(data));
   }, [industryId]);

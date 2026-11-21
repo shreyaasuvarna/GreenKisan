@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import { addAlert } from "../utils/alertHelper";
+import API_URL from "../config/api";
 
 function IndustryAlerts() {
   const { t } = useLanguage();
@@ -13,7 +14,7 @@ function IndustryAlerts() {
   const loadAlerts = async () => {
     try {
       // Backend notifications for industry
-      const res = await fetch(`http://localhost:5000/api/industry-notifications/${industryId}`);
+      const res = await fetch(`${API_URL}/api/industry-notifications/${industryId}`);
       const backendAlerts = await res.json();
 
       const formattedBackend = backendAlerts.map((n) => ({

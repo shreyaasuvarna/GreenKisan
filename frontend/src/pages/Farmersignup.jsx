@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import "../styles/Auth.css";
+import API_URL from "../config/api";
 
 function Farmersignup() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ function Farmersignup() {
       return;
     }
 
-    const response = await fetch("http://localhost:5000/api/farmer/signup", {
+    const response = await fetch(`${API_URL}/api/farmer/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: form.name, email: form.email, password: form.password }),

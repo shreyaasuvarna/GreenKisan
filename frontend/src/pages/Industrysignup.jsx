@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import "../styles/IndustryAuth.css";
+import API_URL from "../config/api";
+
 
 function Industrysignup() {
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ function Industrysignup() {
       return;
     }
     try {
-      const res = await fetch("http://localhost:5000/api/industry/signup", {
+      const res = await fetch(`${API_URL}/api/industry/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ companyName: form.companyName, email: form.email, phone: form.phone, address: form.address, password: form.password }),

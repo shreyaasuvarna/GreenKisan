@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import "../styles/IndustryAuth.css";
+import API_URL from "../config/api";
+
 
 function Industrysignin() {
   const navigate = useNavigate();
@@ -13,7 +15,7 @@ function Industrysignin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/api/industry/signin", {
+      const res = await fetch(`${API_URL}/api/industry/signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ login: form.login, password: form.password }),

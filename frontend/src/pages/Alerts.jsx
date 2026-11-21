@@ -892,6 +892,7 @@
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import { addAlert } from "../utils/alertHelper";
+import API_URL from "../config/api";
 
 function Alerts() {
   const { t } = useLanguage();
@@ -904,7 +905,7 @@ function Alerts() {
   const loadAlerts = async () => {
     try {
       // Backend notifications
-      const res = await fetch(`http://localhost:5000/api/notifications/${farmerId}`);
+      const res = await fetch(`${API_URL}/api/notifications/${farmerId}`);
       const backendAlerts = await res.json();
 
       const formattedBackend = backendAlerts.map((n) => ({
@@ -947,7 +948,7 @@ function Alerts() {
     setLoading((prev) => ({ ...prev, [bookingId]: true }));
 
     try {
-      const res = await fetch(`http://localhost:5000/api/bookings/${bookingId}/farmer-confirm`, {
+      const res = await fetch(`${API_URL}/api/bookings/${bookingId}/farmer-confirm`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: status }),

@@ -1427,6 +1427,7 @@
 
 import React, { useState } from "react";
 import { Upload, X, MapPin, User, Phone, Package, Leaf, ArrowLeft, CheckCircle, Camera } from "lucide-react";
+import API_URL from "../config/api";
 
 const AddCropResidue = () => {
   const [language, setLanguage] = useState("en");
@@ -1524,7 +1525,7 @@ const AddCropResidue = () => {
     data.append("farmerId", farmerId);
 
     try {
-      const res = await fetch("http://localhost:5000/api/residue/upload", {
+      const res = await fetch(`${API_URL}/api/residue/upload`, {
         method: "POST",
         body: data,
       });

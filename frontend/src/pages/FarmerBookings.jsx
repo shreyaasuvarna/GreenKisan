@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import API_URL from "../config/api";
 
 export default function FarmerBookings() {
   const farmerId = localStorage.getItem("farmerId");
@@ -6,7 +7,7 @@ export default function FarmerBookings() {
 
   const fetchBookings = () => {
     if (!farmerId) return;
-    fetch(`http://localhost:5000/api/bookings/farmer/${farmerId}`)
+    fetch(`${API_URL}/api/bookings/farmer/${farmerId}`)
       .then((res) => res.json())
       .then((data) => setBookings(data));
   };
@@ -16,7 +17,7 @@ export default function FarmerBookings() {
   }, [farmerId]);
 
   const handleAction = async (bookingId, action) => {
-    const res = await fetch(`http://localhost:5000/api/bookings/${bookingId}/farmer-confirm`, {
+    const res = await fetch(`${API_URL}/api/bookings/${bookingId}/farmer-confirm`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ action }),

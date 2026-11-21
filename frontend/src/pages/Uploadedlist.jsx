@@ -213,6 +213,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Trash2, Edit2, Eye, Bell, Package, Leaf, MapPin, Calendar, ArrowLeft, X, Save } from 'lucide-react';
+import API_URL from "../config/api";
 
 const Uploadedlist = () => {
   const [language, setLanguage] = useState('en');
@@ -308,7 +309,7 @@ const Uploadedlist = () => {
       try {
         const token = localStorage.getItem("token");
 
-        const res = await fetch("http://localhost:5000/api/residue/all", {
+        const res = await fetch(`${API_URL}/api/residue/all`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,

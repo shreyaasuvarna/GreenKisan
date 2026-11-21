@@ -188,7 +188,7 @@ function PreBook() {
               <p><strong>{t("quantity") ?? "Quantity:"}</strong> {item.quantity} kg</p>
               <p><strong>{t("location") ?? "Location:"}</strong> {item.location}</p>
               <p><strong>{t("industry") ?? "Industry:"}</strong> {item.industryName}</p>
-              <p><strong>{t("contact") ?? "Contact:"}</strong> {item.industryContact}</p>
+              <p><strong>{t("contactLabel") ?? "Contact:"}</strong> {item.industryContact}</p>
               {item.notes && (
                 <p><strong>{t("notes") ?? "Notes:"}</strong> {item.notes}</p>
               )}
